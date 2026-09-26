@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="cyanGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#63e6be" stop-opacity="1" />
+      <stop offset="70%" stop-color="#63e6be" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#63e6be" stop-opacity="0" />
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#0c1014" stroke="rgba(208, 238, 235, 0.15)" stroke-width="2" />
+  <!-- Glowing subtle backdrop -->
+  <circle cx="64" cy="64" r="42" fill="url(#cyanGlow)" opacity="0.15" />
+  <!-- Outer orbital ring -->
+  <circle cx="64" cy="64" r="38" fill="none" stroke="rgba(99, 230, 190, 0.35)" stroke-width="2" stroke-dasharray="4 3" />
+  <circle cx="64" cy="64" r="28" fill="none" stroke="#63e6be" stroke-width="2" />
+  <!-- Central pulse dot -->
+  <circle cx="64" cy="64" r="8" fill="#63e6be" filter="url(#glow)" />
+  <circle cx="64" cy="64" r="4" fill="#ffffff" />
+</svg>
