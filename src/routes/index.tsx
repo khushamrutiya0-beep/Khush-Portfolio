@@ -130,7 +130,7 @@ function Page() {
           ))}
         </nav>
         <div className="header-actions">
-          <span className="version">v1.0.0_STABLE</span>
+          <span className="version"></span>
           <button
             className="theme-toggle"
             onClick={() => setDark(!dark)}
