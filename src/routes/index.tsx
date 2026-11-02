@@ -226,11 +226,11 @@ function Page() {
             </div>
             <div className="terminal-footer">
               <span>
-                <Code2 /> Java
+                <Code2 /> C++ • PYTHON • TS • SQL
               </span>
-              {/* <span>
+              <span>
                 STATUS: <b>ONLINE</b>
-              </span> */}
+              </span>
             </div>
           </div>
         </div>
