@@ -325,10 +325,6 @@ function Page() {
                 </p>
               </div>
             </div>
-            <div className="location-row">
-              <span>BASED_IN</span>
-              <strong>RAJKOT, GUJARAT</strong>
-            </div>
           </article>
         </div>
       </section>

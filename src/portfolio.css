@@ -1072,13 +1072,28 @@ h2 span {
   padding: 72px 0;
 }
 
-/* ORCA project card & modal refinements */
+/* Projects grid & responsive cards */
 .projects-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  max-width: 820px;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1160px;
   margin: 0 auto;
-  gap: 18px;
+  gap: 24px;
+}
+.project-card {
+  display: flex;
+  flex-direction: column;
+}
+.project-card .text-link {
+  margin-top: auto;
+  padding-top: 14px;
+}
+@media (max-width: 860px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    gap: 18px;
+  }
 }
 .project-card.card-interactive {
   cursor: pointer;

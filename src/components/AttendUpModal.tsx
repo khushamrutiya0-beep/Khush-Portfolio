@@ -322,3 +322,4 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
     </Dialog.Root>
   );
 }
+
