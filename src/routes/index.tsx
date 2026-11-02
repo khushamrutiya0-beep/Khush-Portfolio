@@ -464,15 +464,12 @@ function Page() {
               </div>
               <div className={`project-visual ${project.image ? "has-image" : ""}`}>
                 {project.image ? (
-                  <>
-                    <img
-                      src={project.image}
-                      alt={`${project.name} preview`}
-                      className="project-cover-img"
-                      loading="lazy"
-                    />
-                    <span className="project-command">{project.command || "project.init()"}</span>
-                  </>
+                  <img
+                    src={project.image}
+                    alt={`${project.name} preview`}
+                    className="project-cover-img"
+                    loading="lazy"
+                  />
                 ) : (
                   <>
                     <div className="project-grid" />
