@@ -212,13 +212,13 @@ function Page() {
                 <span className="terminal-prompt">$</span> cat focus.txt
               </p>
               <p className="terminal-output">
-                software engineering & core cs
+                web fundamentals (html & css)
                 <br />
-                data structures & algorithms
+                basic c++ & logic building
                 <br />
-                full-stack systems & databases
+                java (currently learning)
                 <br />
-                analytical problem solving
+                git & github workflow
               </p>
               <p>
                 <span className="terminal-prompt">$</span> <span className="cursor" />
@@ -226,7 +226,7 @@ function Page() {
             </div>
             <div className="terminal-footer">
               <span>
-                <Code2 /> C++ • PYTHON • TS • SQL
+                <Code2 /> HTML • CSS • C++ • JAVA • GITHUB
               </span>
               <span>
                 STATUS: <b>ONLINE</b>
@@ -283,9 +283,8 @@ function Page() {
               <div>
                 <h3>What I focus on</h3>
                 <p className="muted-copy">
-                  Core CS foundations — algorithms, data structures, object-oriented design,
-                  databases, and modern software practices that easily adapt across diverse tech
-                  stacks.
+                  Core CS foundations — building strong basics in C++, learning Java and OOP,
+                  crafting web interfaces with HTML &amp; CSS, and managing code with Git &amp; GitHub.
                 </p>
               </div>
               <div>
@@ -375,32 +374,32 @@ function Page() {
         <div className="skills-grid">
           <SkillCard
             icon="01"
-            title="CORE CS & LANGUAGES"
+            title="PROGRAMMING LANGUAGES"
             items={[
-              "C & C++",
-              "Python",
-              "Data Structures & Algorithms",
+              "Basic C++",
+              "Java (Currently Learning)",
               "Object-Oriented Programming (OOP)",
+              "Logic & Problem Solving",
             ]}
           />
           <SkillCard
             icon="02"
-            title="WEB & SYSTEMS"
+            title="WEB DEVELOPMENT"
             items={[
-              "JavaScript & TypeScript",
-              "HTML5 & CSS3 / Modern UI",
-              "Relational Databases & SQL",
-              "RESTful APIs & Networking",
+              "HTML5 (Semantic Web)",
+              "CSS3 (Layouts & Styling)",
+              "Responsive Web Design",
+              "Web Page Fundamentals",
             ]}
           />
           <SkillCard
             icon="03"
-            title="TOOLS & METHODOLOGY"
+            title="TOOLS & VERSION CONTROL"
             items={[
-              "Git & GitHub",
-              "Linux & Command Line",
-              "VS Code & Debugging Tools",
-              "Analytical Problem Solving",
+              "GitHub (Repositories & Collaboration)",
+              "Git (Version Control)",
+              "VS Code",
+              "Command Line Basics",
             ]}
             accent
           />
