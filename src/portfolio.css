@@ -1418,3 +1418,38 @@ h2 span {
     justify-content: center;
   }
 }
+
+/* AttendUp screen showcase */
+.attendup-screens-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.attendup-screen-item {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.attendup-screen-item:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--cyan) 40%, var(--border));
+}
+.attendup-screen-item img {
+  width: 100%;
+  aspect-ratio: 9 / 18.5;
+  object-fit: cover;
+  display: block;
+}
+.attendup-screen-caption {
+  padding: 10px 12px;
+  font: 11px/1.4 "JetBrains Mono", monospace;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.18);
+  letter-spacing: 0.02em;
+}
+

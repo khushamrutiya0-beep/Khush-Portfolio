@@ -18,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { OrcaModal } from "../components/OrcaModal";
+import { AttendUpModal } from "../components/AttendUpModal";
 
 const TITLE = "Khush Amrutiya | Computer Engineering & Software Portfolio";
 const DESCRIPTION =
@@ -52,6 +53,20 @@ const navItems: [string, string][] = [
 
 const projects = [
   {
+    name: "ATTENDUP",
+    subtitle: "Smart Student Attendance & Campus Monitoring System",
+    tag: "MOBILE APPLICATION // FULL-STACK // AI-ASSISTED DEVELOPMENT",
+    status: "ACTIVE_PROJECT",
+    description:
+      "Smart, location-aware student attendance and campus monitoring application combining geofencing, automated attendance tracking, cloud data management, and offline-first synchronization.",
+    tech: "React Native • Expo • TypeScript • Supabase • PostgreSQL • SQLite • Leaflet",
+    image: "/attendup-cover.jpg",
+    live: true,
+    hasModal: true,
+    modalKey: "attendup",
+    command: "attendup.geofence()",
+  },
+  {
     name: "ORCA",
     subtitle: "Intelligent Ocean Risk & Coastal Analytics System",
     tag: "AI // MARINE INTELLIGENCE // FULL-STACK",
@@ -62,6 +77,8 @@ const projects = [
     image: "/orca-cover.jpg",
     live: true,
     hasModal: true,
+    modalKey: "orca",
+    command: "orca.marine_intel()",
   },
 ];
 
@@ -74,6 +91,7 @@ function Page() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [orcaModalOpen, setOrcaModalOpen] = useState(false);
+  const [attendUpModalOpen, setAttendUpModalOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -107,6 +125,11 @@ function Page() {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
+  };
+
+  const openProjectModal = (modalKey?: string) => {
+    if (modalKey === "orca") setOrcaModalOpen(true);
+    if (modalKey === "attendup") setAttendUpModalOpen(true);
   };
 
   return (
@@ -424,7 +447,7 @@ function Page() {
               key={project.name}
               onClick={() => {
                 if (project.hasModal) {
-                  setOrcaModalOpen(true);
+                  openProjectModal(project.modalKey);
                 }
               }}
               role={project.hasModal ? "button" : undefined}
@@ -433,7 +456,7 @@ function Page() {
               onKeyDown={(e) => {
                 if (project.hasModal && (e.key === "Enter" || e.key === " ")) {
                   e.preventDefault();
-                  setOrcaModalOpen(true);
+                  openProjectModal(project.modalKey);
                 }
               }}
             >
@@ -452,7 +475,7 @@ function Page() {
                       className="project-cover-img"
                       loading="lazy"
                     />
-                    <span className="project-command">orca.marine_intel()</span>
+                    <span className="project-command">{project.command || "project.init()"}</span>
                   </>
                 ) : (
                   <>
@@ -480,7 +503,7 @@ function Page() {
                 onClick={(e) => {
                   e.stopPropagation();
                   if (project.hasModal) {
-                    setOrcaModalOpen(true);
+                    openProjectModal(project.modalKey);
                   } else if (project.live) {
                     scrollTo("contact");
                   }
@@ -606,6 +629,7 @@ function Page() {
         </a>
       </footer>
       <OrcaModal isOpen={orcaModalOpen} onClose={setOrcaModalOpen} />
+      <AttendUpModal isOpen={attendUpModalOpen} onClose={setAttendUpModalOpen} />
     </main>
   );
 }
