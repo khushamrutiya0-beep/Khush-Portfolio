@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ArrowDown,
@@ -178,9 +178,8 @@ function Page() {
             Khush <span>Amrutiya.</span>
           </h1>
           <p className="hero-description">
-            A Computer Engineering student building strong foundations in algorithms, software
-            design, and scalable systems — bringing analytical thinking and adaptability to software
-            engineering, full-stack development, data, and technical problem-solving roles.
+            First-year Computer Engineering student. I build things — mobile apps, web tools,
+            and whatever problem lands in front of me.
           </p>
 
           <div className="hero-actions">
@@ -283,47 +282,16 @@ function Page() {
               <Terminal />
             </div>
             <p className="mono-label">$ cat /profile/about.md</p>
-            <p className="large-copy">
-              An adaptable engineer turning complex problems into structured logic and dependable
-              code — grounded in computer engineering principles that scale across every technical
-              domain.
-            </p>
             <p className="muted-copy">
-              Currently pursuing B.E. in Computer Engineering at V.V.P. Engineering College, Rajkot.
-              Whether architecting robust software, analyzing data, designing full-stack solutions,
-              or mastering new systems, I focus on deep conceptual understanding and delivering
-              reliable, high-quality work.
+              B.E. Computer Engineering at V.V.P. Engineering College, Rajkot. I started coding to
+              solve real problems — ended up building a full-stack attendance app and an AI marine
+              intelligence platform in my first year.
             </p>
             <div className="about-columns">
-              <div>
-                <h3>How I think</h3>
-                <p className="muted-copy">
-                  Structured problem solving. I deconstruct complex challenges into core components,
-                  evaluate trade-offs, and iterate methodically until the solution is robust and
-                  efficient.
-                </p>
-              </div>
-              <div>
-                <h3>What I focus on</h3>
-                <p className="muted-copy">
-                  Core CS foundations — building strong basics in C++, learning Java and OOP,
-                  crafting web interfaces with HTML &amp; CSS, and managing code with Git &amp; GitHub.
-                </p>
-              </div>
-              <div>
-                <h3>Beyond code</h3>
-                <p className="muted-copy">
-                  Strong technical communication, collaborative teamwork, proactive learning, and
-                  clear documentation that connects engineering logic to real-world outcomes.
-                </p>
-              </div>
-              <div>
-                <h3>Open to</h3>
-                <p className="muted-copy">
-                  Internships, software engineering, web development, data analysis, and technical
-                  roles where dedication, fast learning, and consistency create tangible value.
-                </p>
-              </div>
+              <div><h3>Approach</h3><p className="muted-copy">Break it down, build it up, ship it clean.</p></div>
+              <div><h3>Currently learning</h3><p className="muted-copy">Java, OOP, data structures, and system design fundamentals.</p></div>
+              <div><h3>Beyond code</h3><p className="muted-copy">Good communicator. Fast learner. Reliable team member.</p></div>
+              <div><h3>Open to</h3><p className="muted-copy">Internships, dev roles, anything that challenges me.</p></div>
             </div>
           </article>
         </div>
@@ -348,9 +316,7 @@ function Page() {
             <span className="timeline-date">2026 — 2030 / NOW</span>
             <h3>B.E. Computer Engineering</h3>
             <p>
-              V.V.P. Engineering College, Rajkot. Pursuing B.E. in Computer Engineering with
-              emphasis on algorithms, data structures, computer architecture, databases, and
-              software engineering principles.
+              V.V.P. Engineering College, Rajkot — B.E. Computer Engineering.
             </p>
           </article>
           <article className="glass-card edu-card reveal">
@@ -360,8 +326,7 @@ function Page() {
             <span className="timeline-date">COMPLETED 2026</span>
             <h3>Higher Secondary Education</h3>
             <p>
-              Science Stream — Dholakiya School, Rajkot. Comprehensive curriculum emphasizing
-              advanced Mathematics, Physics, and analytical logic.
+              Science Stream — Dholakiya School, Rajkot.
             </p>
           </article>
           <article className="glass-card edu-card reveal">
@@ -371,8 +336,7 @@ function Page() {
             <span className="timeline-date">COMPLETED 2024</span>
             <h3>Secondary Education (10th Grade)</h3>
             <p>
-              Dholakiya School, Rajkot. Strong academic foundation in mathematics, logic, and
-              scientific fundamentals.
+              Dholakiya School, Rajkot.
             </p>
           </article>
         </div>
@@ -528,10 +492,6 @@ function Page() {
         <div className="contact-grid">
           <div className="contact-copy reveal">
             <p className="large-copy">Have an idea, an opportunity, or just want to say hello?</p>
-            <p className="muted-copy">
-              I&apos;m always open to discussing engineering roles, collaborative projects,
-              internships, or innovative tech opportunities.
-            </p>
             <div className="contact-links">
               <a href="mailto:khushamrutiya9@gmail.com">
                 <Mail /> khushamrutiya9@gmail.com <ArrowUpRight />
