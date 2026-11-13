@@ -59,16 +59,9 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
                 <span>// 01</span> Project Overview
               </p>
               <p className="orca-overview-text">
-                AttendUp is a smart, location-aware student attendance and campus monitoring
-                application designed to simplify attendance management and strengthen
-                parent–student connectivity.
-              </p>
-              <p className="orca-overview-text" style={{ marginTop: 10 }}>
-                The platform combines geofencing, automated attendance tracking, cloud-based data
-                management, and offline-first synchronization to provide a more connected and
-                reliable attendance experience. Built with a privacy-first approach, AttendUp
-                enables parents to monitor attendance and high-level campus presence without
-                exposing students&apos; raw GPS coordinates.
+                AttendUp is a smart, location-aware mobile platform designed to automate student
+                attendance via campus geofencing, maintain offline-first data sync, and give parents
+                real-time presence verification with strict privacy protection.
               </p>
             </div>
 
@@ -81,46 +74,32 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
                 <div className="orca-mini-card">
                   <h4>The Problem</h4>
                   <p>
-                    Traditional attendance management systems often rely on manual processes,
-                    provide limited real-time visibility, and make it difficult for parents to stay
-                    informed about student attendance.
-                  </p>
-                  <p style={{ marginTop: 8 }}>
-                    Additionally, unreliable internet connectivity and fragmented communication can
-                    affect the accuracy and accessibility of attendance information.
+                    Manual roll-calls are slow and prone to errors, while parents lack real-time
+                    visibility into their student&apos;s attendance and campus presence, especially
+                    during network dropouts.
                   </p>
                 </div>
                 <div className="orca-mini-card">
                   <h4>The Solution</h4>
                   <p>
-                    AttendUp introduces an automated, location-aware attendance workflow that
-                    connects students, parents, and campus information through a unified mobile
-                    platform:
+                    AttendUp automates attendance verification using high-precision geofencing and
+                    offline caching:
                   </p>
                   <ul className="orca-solution-list">
                     <li>
-                      <Check /> Location-based campus entry & exit detection
+                      <Check /> Automated geofenced campus entry & exit detection
                     </li>
                     <li>
-                      <Check /> Automated attendance confirmation using geofencing
+                      <Check /> Offline-first SQLite queue with cloud synchronization
                     </li>
                     <li>
-                      <Check /> Parent–student account linking workflows
+                      <Check /> Secure parent–student account linking
                     </li>
                     <li>
-                      <Check /> Real-time presence status infrastructure
+                      <Check /> Privacy-first design (no raw GPS coordinate leakage)
                     </li>
                     <li>
-                      <Check /> Offline-first data storage & auto-synchronization
-                    </li>
-                    <li>
-                      <Check /> Cloud-based attendance & user management
-                    </li>
-                    <li>
-                      <Check /> Push notification infrastructure for important events
-                    </li>
-                    <li>
-                      <Check /> Privacy-focused campus monitoring (no raw GPS leaks)
+                      <Check /> Real-time status alerts & push notifications
                     </li>
                   </ul>
                 </div>
@@ -175,7 +154,10 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
                 </div>
                 <div className="orca-feature-card">
                   <h5>Parent–Student Connectivity</h5>
-                  <p>Secure account-linking workflows that connect parent accounts with student profiles.</p>
+                  <p>
+                    Secure account-linking workflows that connect parent accounts with student
+                    profiles.
+                  </p>
                 </div>
                 <div className="orca-feature-card">
                   <h5>Offline-First Architecture</h5>
@@ -250,7 +232,9 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
               </p>
               <div className="orca-role-card">
                 <div>
-                  <strong>Role: AI-Assisted Full-Stack Mobile Developer &amp; Product Builder</strong>
+                  <strong>
+                    Role: AI-Assisted Full-Stack Mobile Developer &amp; Product Builder
+                  </strong>
                   <p className="muted-copy" style={{ marginTop: 6, marginBottom: 0 }}>
                     As a first-year Computer Engineering student, I independently explored the
                     problem, shaped the product concept, planned the application architecture,
@@ -260,13 +244,11 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
                   </p>
                 </div>
                 <div>
-                  <strong style={{ fontSize: 13 }}>Development Approach:</strong>
+                  <strong>Engineering Approach:</strong>
                   <p className="muted-copy" style={{ marginTop: 6, marginBottom: 0 }}>
-                    Developed through an AI-assisted engineering workflow, using AI tools to support
-                    technical research, code generation, implementation planning, debugging, and
-                    problem-solving. I combined AI-assisted development with hands-on configuration,
-                    integration, code review, testing, troubleshooting, and iterative refinement to
-                    understand how the different components work together.
+                    Built via an AI-assisted engineering workflow, combining AI-driven code
+                    generation and research with hands-on architecture, database design (RLS
+                    policies), local SQLite queues, APK builds, and physical Android device testing.
                   </p>
                 </div>
                 <div>
@@ -276,7 +258,8 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
                       <Check /> Cross-platform mobile development (React Native &amp; Expo)
                     </li>
                     <li>
-                      <Check /> Full-stack architecture &amp; relational database design (PostgreSQL &amp; Supabase)
+                      <Check /> Full-stack architecture &amp; relational database design (PostgreSQL
+                      &amp; Supabase)
                     </li>
                     <li>
                       <Check /> Offline-first application design &amp; SQLite synchronization queues
@@ -285,7 +268,8 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
                       <Check /> GPS, geofencing, and Android background location execution
                     </li>
                     <li>
-                      <Check /> Database security, Row Level Security (RLS), and parent-student account linking
+                      <Check /> Database security, Row Level Security (RLS), and parent-student
+                      account linking
                     </li>
                     <li>
                       <Check /> Debugging, real-device testing, and production build configuration
@@ -322,4 +306,3 @@ export function AttendUpModal({ isOpen, onClose }: AttendUpModalProps) {
     </Dialog.Root>
   );
 }
-

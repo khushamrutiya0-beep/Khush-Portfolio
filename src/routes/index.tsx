@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ArrowDown,
@@ -54,12 +54,12 @@ const navItems: [string, string][] = [
 const projects = [
   {
     name: "ATTENDUP",
-    subtitle: "Smart Student Attendance & Campus Monitoring System",
-    tag: "MOBILE APPLICATION // FULL-STACK // AI-ASSISTED DEVELOPMENT",
+    subtitle: "Smart Campus & Student Attendance App",
+    tag: "MOBILE APPLICATION // FULL-STACK // AI-ASSISTED",
     status: "ACTIVE_PROJECT",
     description:
-      "Smart, location-aware student attendance and campus monitoring application combining geofencing, automated attendance tracking, cloud data management, and offline-first synchronization.",
-    tech: "React Native • Expo • TypeScript • Supabase • PostgreSQL • SQLite • Leaflet",
+      "Automated geofenced attendance tracking with offline-first synchronization and privacy-first parental updates.",
+    tech: "React Native • Expo • TypeScript • Supabase • SQLite",
     image: "/attendup-cover.jpg",
     live: true,
     hasModal: true,
@@ -68,12 +68,12 @@ const projects = [
   },
   {
     name: "ORCA",
-    subtitle: "Intelligent Ocean Risk & Coastal Analytics System",
+    subtitle: "Ocean Risk & Coastal Analytics Platform",
     tag: "AI // MARINE INTELLIGENCE // FULL-STACK",
     status: "SIH_2026",
     description:
-      "AI-powered marine intelligence platform combining multi-agent AI, deterministic risk assessment, geospatial analysis and marine decision support.",
-    tech: "Next.js • React • TypeScript • Node.js • Tailwind CSS • Leaflet • Gemini AI",
+      "Multi-agent AI marine platform delivering live coastal risk assessment, interactive tactical maps, and safe route guidance.",
+    tech: "Next.js • TypeScript • Tailwind CSS • Leaflet • Gemini AI",
     image: "/orca-cover.jpg",
     live: true,
     hasModal: true,
@@ -81,6 +81,9 @@ const projects = [
     command: "orca.marine_intel()",
   },
 ];
+
+const KICKER_TEXT = "Hello, world. I'm";
+const ROLE_WORDS = ["Computer Engineer", "Good Designer", "Problem Solver", "Developer"];
 
 function Page() {
   const [dark, setDark] = useState(true);
@@ -92,6 +95,56 @@ function Page() {
   const [message, setMessage] = useState("");
   const [orcaModalOpen, setOrcaModalOpen] = useState(false);
   const [attendUpModalOpen, setAttendUpModalOpen] = useState(false);
+
+  // Typewriter effect for hero kicker ("Hello, world. I'm")
+  const [typedKicker, setTypedKicker] = useState("");
+  const [kickerComplete, setKickerComplete] = useState(false);
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index += 1;
+      setTypedKicker(KICKER_TEXT.slice(0, index));
+      if (index >= KICKER_TEXT.length) {
+        clearInterval(interval);
+        setKickerComplete(true);
+      }
+    }, 65);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Write and erase typewriter animation for roles
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [roleText, setRoleText] = useState("");
+  const [isRoleDeleting, setIsRoleDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = ROLE_WORDS[roleIndex % ROLE_WORDS.length] ?? "";
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (!isRoleDeleting) {
+      if (roleText.length < currentWord.length) {
+        timer = setTimeout(() => {
+          setRoleText(currentWord.slice(0, roleText.length + 1));
+        }, 75);
+      } else {
+        timer = setTimeout(() => {
+          setIsRoleDeleting(true);
+        }, 1600);
+      }
+    } else {
+      if (roleText.length > 0) {
+        timer = setTimeout(() => {
+          setRoleText(currentWord.slice(0, roleText.length - 1));
+        }, 38);
+      } else {
+        setIsRoleDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % ROLE_WORDS.length);
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [roleText, isRoleDeleting, roleIndex]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -173,13 +226,16 @@ function Page() {
 
       <section id="home" className="hero shell">
         <div className="hero-copy reveal">
-          <p className="hero-kicker">Hello, world. I&apos;m</p>
+          <p className="hero-kicker">
+            <span>{typedKicker}</span>
+            <span className={kickerComplete ? "kicker-cursor blink-subtle" : "kicker-cursor"} />
+          </p>
           <h1>
             Khush <span>Amrutiya.</span>
           </h1>
           <p className="hero-description">
-            First-year Computer Engineering student. I build things — mobile apps, web tools,
-            and whatever problem lands in front of me.
+            First-year Computer Engineering student. I build things — mobile apps, web tools, and
+            whatever problem lands in front of me.
           </p>
 
           <div className="hero-actions">
@@ -229,7 +285,10 @@ function Page() {
               <p>
                 <span className="terminal-prompt">$</span> who am i
               </p>
-              <p className="terminal-output">engineer_&_problem_solver</p>
+              <p className="terminal-output role-output">
+                <span>{roleText}</span>
+                <span className="role-cursor" />
+              </p>
               <p>
                 <span className="terminal-prompt">$</span> cat focus.txt
               </p>
@@ -288,10 +347,24 @@ function Page() {
               intelligence platform in my first year.
             </p>
             <div className="about-columns">
-              <div><h3>Approach</h3><p className="muted-copy">Break it down, build it up, ship it clean.</p></div>
-              <div><h3>Currently learning</h3><p className="muted-copy">Java, OOP, data structures, and system design fundamentals.</p></div>
-              <div><h3>Beyond code</h3><p className="muted-copy">Good communicator. Fast learner. Reliable team member.</p></div>
-              <div><h3>Open to</h3><p className="muted-copy">Internships, dev roles, anything that challenges me.</p></div>
+              <div>
+                <h3>Approach</h3>
+                <p className="muted-copy">Break it down, build it up, ship it clean.</p>
+              </div>
+              <div>
+                <h3>Currently learning</h3>
+                <p className="muted-copy">
+                  Java, OOP, data structures, and system design fundamentals.
+                </p>
+              </div>
+              <div>
+                <h3>Beyond code</h3>
+                <p className="muted-copy">Good communicator. Fast learner. Reliable team member.</p>
+              </div>
+              <div>
+                <h3>Open to</h3>
+                <p className="muted-copy">Internships, dev roles, anything that challenges me.</p>
+              </div>
             </div>
           </article>
         </div>
@@ -315,9 +388,7 @@ function Page() {
             </span>
             <span className="timeline-date">2026 — 2030 / NOW</span>
             <h3>B.E. Computer Engineering</h3>
-            <p>
-              V.V.P. Engineering College, Rajkot — B.E. Computer Engineering.
-            </p>
+            <p>V.V.P. Engineering College, Rajkot — B.E. Computer Engineering.</p>
           </article>
           <article className="glass-card edu-card reveal">
             <span className="timeline-node done">
@@ -325,9 +396,7 @@ function Page() {
             </span>
             <span className="timeline-date">COMPLETED 2026</span>
             <h3>Higher Secondary Education</h3>
-            <p>
-              Science Stream — Dholakiya School, Rajkot.
-            </p>
+            <p>Science Stream — Dholakiya School, Rajkot.</p>
           </article>
           <article className="glass-card edu-card reveal">
             <span className="timeline-node done">
@@ -335,9 +404,7 @@ function Page() {
             </span>
             <span className="timeline-date">COMPLETED 2024</span>
             <h3>Secondary Education (10th Grade)</h3>
-            <p>
-              Dholakiya School, Rajkot.
-            </p>
+            <p>Dholakiya School, Rajkot.</p>
           </article>
         </div>
       </section>
@@ -357,33 +424,23 @@ function Page() {
         <div className="skills-grid">
           <SkillCard
             icon="01"
-            title="PROGRAMMING LANGUAGES"
-            items={[
-              "Basic C++",
-              "Java (Currently Learning)",
-              "Object-Oriented Programming (OOP)",
-              "Logic & Problem Solving",
-            ]}
+            title="CORE & LANGUAGES"
+            items={["C / C++", "Java", "TypeScript & JavaScript", "Object-Oriented Programming"]}
           />
           <SkillCard
             icon="02"
-            title="WEB DEVELOPMENT"
+            title="DEVELOPMENT & WEB"
             items={[
-              "HTML5 (Semantic Web)",
-              "CSS3 (Layouts & Styling)",
-              "Responsive Web Design",
-              "Web Page Fundamentals",
+              "React & Next.js",
+              "React Native (Expo)",
+              "Tailwind CSS & Modern UI",
+              "REST APIs & Node.js",
             ]}
           />
           <SkillCard
             icon="03"
-            title="TOOLS & VERSION CONTROL"
-            items={[
-              "GitHub (Repositories & Collaboration)",
-              "Git (Version Control)",
-              "VS Code",
-              "Command Line Basics",
-            ]}
+            title="TOOLS & DATABASES"
+            items={["Git & GitHub", "Supabase & PostgreSQL", "SQLite", "VS Code & Command Line"]}
             accent
           />
         </div>

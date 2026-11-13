@@ -1,4 +1,4 @@
-﻿@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -253,6 +253,21 @@ main {
     16px "JetBrains Mono",
     monospace;
   margin: 54px 0 12px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+}
+.kicker-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 18px;
+  background: var(--cyan);
+  margin-left: 4px;
+  animation: blink 0.8s infinite;
+}
+.kicker-cursor.blink-subtle {
+  animation: blink 1.2s infinite;
+  opacity: 0.8;
 }
 .hero h1 {
   font-size: clamp(52px, 8vw, 100px);
@@ -266,11 +281,11 @@ h2 span {
   color: var(--cyan);
 }
 .hero-description {
-  max-width: 510px;
+  max-width: 540px;
   margin: 28px 0;
   color: var(--muted);
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: 18.5px;
+  line-height: 1.75;
 }
 .hero-actions {
   display: flex;
@@ -406,6 +421,21 @@ h2 span {
   padding-left: 20px;
   margin-bottom: 14px !important;
 }
+.terminal-output.role-output {
+  color: var(--cyan);
+  font-weight: 600;
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+}
+.role-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--cyan);
+  margin-left: 4px;
+  animation: blink 0.75s infinite;
+}
 .cursor {
   display: inline-block;
   width: 8px;
@@ -524,7 +554,7 @@ h2 span {
 }
 .muted-copy {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15.5px;
   line-height: 1.7;
 }
 .location-row {
@@ -619,7 +649,7 @@ h2 span {
 .skill-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 13px;
   margin-top: 34px;
 }
 .skill-list span {
@@ -627,8 +657,9 @@ h2 span {
   align-items: center;
   gap: 10px;
   font:
-    13px "JetBrains Mono",
+    14.5px "JetBrains Mono",
     monospace;
+  color: var(--foreground);
 }
 .list-dot {
   width: 5px;
@@ -719,14 +750,18 @@ h2 span {
   margin: 0 0 8px;
 }
 .project-card h3 {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
   margin: 0;
   letter-spacing: -0.02em;
 }
 .project-card .muted-copy {
-  min-height: 72px;
-  font-size: 13px;
+  min-height: auto;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--foreground);
+  opacity: 0.88;
+  margin: 4px 0 10px;
 }
 .text-link {
   display: inline-flex;
@@ -1003,8 +1038,12 @@ h2 span {
 .about-card {
   min-height: 0;
 }
-.about-card .large-copy {
-  max-width: 900px;
+.about-card > .muted-copy {
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--foreground);
+  opacity: 0.94;
+  margin: 16px 0 24px;
 }
 .about-columns {
   display: grid;
@@ -1013,10 +1052,15 @@ h2 span {
   margin-top: 26px;
 }
 .about-columns h3 {
-  font-size: 13px;
+  font-size: 14.5px;
   margin: 0 0 8px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.02em;
+}
+.about-columns .muted-copy {
+  font-size: 15px;
+  line-height: 1.65;
 }
 .timeline-grid {
   display: grid;
@@ -1030,14 +1074,14 @@ h2 span {
   gap: 10px;
 }
 .edu-card h3 {
-  font-size: 16px;
+  font-size: 17px;
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 .edu-card p {
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.65;
   margin: 0;
 }
 @media (max-width: 800px) {
@@ -1115,19 +1159,19 @@ h2 span {
   transform: scale(1.04);
 }
 .project-subtitle {
-  color: var(--foreground);
-  font-size: 13px;
+  color: var(--cyan);
+  font-size: 13.5px;
   font-weight: 500;
   margin: 4px 0 8px;
   line-height: 1.4;
-  opacity: 0.92;
+  opacity: 0.95;
 }
 .project-tech-snippet {
   font:
-    11px/1.5 "JetBrains Mono",
+    12px/1.55 "JetBrains Mono",
     monospace;
   color: var(--muted);
-  margin: 10px 0 16px;
+  margin: 8px 0 16px;
   letter-spacing: 0.02em;
 }
 .project-tech-snippet .tech-label {
@@ -1301,8 +1345,8 @@ h2 span {
   color: var(--muted);
 }
 .orca-overview-text {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 16.5px;
+  line-height: 1.75;
   color: var(--foreground);
   margin: 0;
 }
@@ -1318,21 +1362,21 @@ h2 span {
   background: rgba(0, 0, 0, 0.15);
 }
 .orca-mini-card h4 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   margin: 0 0 8px;
   color: var(--foreground);
 }
 .orca-mini-card p {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14.5px;
+  line-height: 1.65;
   color: var(--muted);
   margin: 0;
 }
 .orca-solution-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
   margin: 12px 0 0;
   padding: 0;
   list-style: none;
@@ -1341,16 +1385,16 @@ h2 span {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 12.5px;
+  font-size: 14px;
   color: var(--muted);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 .orca-solution-list li svg {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   color: var(--cyan);
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 .orca-features-grid {
   display: grid;
@@ -1371,14 +1415,14 @@ h2 span {
   border-color: color-mix(in srgb, var(--cyan) 30%, var(--border));
 }
 .orca-feature-card h5 {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--foreground);
   margin: 0;
 }
 .orca-feature-card p {
-  font-size: 12px;
-  line-height: 1.55;
+  font-size: 13.5px;
+  line-height: 1.6;
   color: var(--muted);
   margin: 0;
 }
@@ -1447,7 +1491,9 @@ h2 span {
   background: rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s ease, border-color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
 }
 .attendup-screen-item:hover {
   transform: translateY(-2px);
@@ -1461,10 +1507,11 @@ h2 span {
 }
 .attendup-screen-caption {
   padding: 10px 12px;
-  font: 11px/1.4 "JetBrains Mono", monospace;
+  font:
+    11px/1.4 "JetBrains Mono",
+    monospace;
   color: var(--muted);
   border-top: 1px solid var(--border);
   background: rgba(0, 0, 0, 0.18);
   letter-spacing: 0.02em;
 }
-

@@ -48,9 +48,9 @@ export function OrcaModal({ isOpen, onClose }: OrcaModalProps) {
                 <span>// 01</span> Project Overview
               </p>
               <p className="orca-overview-text">
-                ORCA is an AI-powered marine intelligence and decision-support platform that helps
-                marine users understand environmental conditions, assess risks, monitor hazards, and
-                make better-informed decisions in coastal and ocean environments.
+                ORCA is an AI-powered marine decision platform that unifies real-time ocean
+                conditions, deterministic risk scoring, and interactive mapping to help maritime
+                operators, fishermen, and coastal authorities make fast, risk-aware decisions.
               </p>
             </div>
 
@@ -63,16 +63,15 @@ export function OrcaModal({ isOpen, onClose }: OrcaModalProps) {
                 <div className="orca-mini-card">
                   <h4>The Problem</h4>
                   <p>
-                    Marine information is often scattered across different sources, making it
-                    difficult for users to understand ocean conditions, hazards, risk, and
-                    route-related information from one unified place.
+                    Critical marine data—weather forecasts, hazard alerts, navigational risks, and
+                    fishing zones—is scattered across disconnected sources, making rapid, safe
+                    decision-making difficult.
                   </p>
                 </div>
                 <div className="orca-mini-card">
                   <h4>The Solution</h4>
                   <p>
-                    ORCA brings relevant marine intelligence together into a unified platform,
-                    converting complex data into role-specific and actionable guidance:
+                    ORCA consolidates live marine intelligence into a unified tactical workspace:
                   </p>
                   <ul className="orca-solution-list">
                     <li>
@@ -82,16 +81,16 @@ export function OrcaModal({ isOpen, onClose }: OrcaModalProps) {
                       <Check /> Multi-agent AI reasoning
                     </li>
                     <li>
-                      <Check /> Deterministic marine risk assessment
+                      <Check /> Deterministic marine risk scoring
                     </li>
                     <li>
-                      <Check /> Geospatial analysis & hazard awareness
+                      <Check /> Geospatial hazard & protected area mapping
                     </li>
                     <li>
-                      <Check /> Marine-aware route planning & shelter ports
+                      <Check /> Risk-aware route planning & shelter ports
                     </li>
                     <li>
-                      <Check /> Marine productivity & PFZ insights
+                      <Check /> Potential Fishing Zone (PFZ) insights
                     </li>
                   </ul>
                 </div>
@@ -164,18 +163,16 @@ export function OrcaModal({ isOpen, onClose }: OrcaModalProps) {
                 <div>
                   <strong>Role: AI-Assisted Full-Stack Developer & Product Builder</strong>
                   <p className="muted-copy" style={{ marginTop: 6, marginBottom: 0 }}>
-                    I translated the problem statement into the product architecture, designed the
-                    workflows, directed AI-assisted development, implemented and integrated major
-                    features, tested functionality, fixed technical and UI issues, and continuously
-                    refined the product.
+                    Architected system workflows, integrated the multi-agent AI pipeline and
+                    interactive Leaflet map, developed responsive frontend interfaces, and directed
+                    iterative testing and optimization.
                   </p>
                 </div>
                 <div>
-                  <strong style={{ fontSize: 13 }}>Development Approach:</strong>
+                  <strong>Engineering Approach:</strong>
                   <p className="muted-copy" style={{ marginTop: 6, marginBottom: 0 }}>
-                    Developed through an AI-assisted engineering workflow, combining AI-powered
-                    development tools with hands-on product architecture, implementation,
-                    integration, testing, debugging and iterative refinement.
+                    Leveraged modern AI development tools alongside hands-on system architecture,
+                    API integration, debugging, and continuous UI/UX refinement.
                   </p>
                 </div>
               </div>
