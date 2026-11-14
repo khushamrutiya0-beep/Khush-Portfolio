@@ -422,25 +422,12 @@ function Page() {
           <span className="heading-line" />
         </div>
         <div className="skills-grid">
-          <SkillCard
-            icon="01"
-            title="CORE & LANGUAGES"
-            items={["C / C++", "Java", "TypeScript & JavaScript", "Object-Oriented Programming"]}
-          />
-          <SkillCard
-            icon="02"
-            title="DEVELOPMENT & WEB"
-            items={[
-              "React & Next.js",
-              "React Native (Expo)",
-              "Tailwind CSS & Modern UI",
-              "REST APIs & Node.js",
-            ]}
-          />
+          <SkillCard icon="01" title="CORE & LANGUAGES" items={["C++(Basics)", "Java"]} />
+          <SkillCard icon="02" title="DEVELOPMENT & WEB" items={["HTML5", "CSS"]} />
           <SkillCard
             icon="03"
             title="TOOLS & DATABASES"
-            items={["Git & GitHub", "Supabase & PostgreSQL", "SQLite", "VS Code & Command Line"]}
+            items={["Git & GitHub", "Database", "Command Line(Basics)"]}
             accent
           />
         </div>
