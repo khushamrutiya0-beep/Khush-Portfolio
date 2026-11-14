@@ -6,16 +6,22 @@ import {
   Check,
   Code2,
   GitBranch,
-  Network,
+  Globe,
+  Layers,
+  Lock,
   Mail,
   Menu,
   Moon,
+  Network,
   Phone,
   Send,
+  Shield,
+  Smartphone,
   Sparkles,
   Sun,
   Terminal,
   X,
+  Zap,
 } from "lucide-react";
 import { OrcaModal } from "../components/OrcaModal";
 import { AttendUpModal } from "../components/AttendUpModal";
@@ -162,6 +168,165 @@ function Page() {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
+  // Live World Clock (Rajkot, IN)
+  const [clock, setClock] = useState({ time: "", isDay: true });
+
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      const timeFmt = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
+      const hourFmt = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        hour: "numeric",
+        hour12: false,
+      });
+      const hr = parseInt(hourFmt.format(now), 10);
+      setClock({
+        time: timeFmt.format(now),
+        isDay: hr >= 6 && hr < 18,
+      });
+    };
+    updateClock();
+    const timer = setInterval(updateClock, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Linear-style card spotlight
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const cards = document.querySelectorAll<HTMLElement>(
+        ".glass-card, .hero-terminal, .hero-photo-card",
+      );
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Animated Metric Counters
+  const [metricsActive, setMetricsActive] = useState(false);
+  const [counts, setCounts] = useState({ p1: 0, p2: 0, p3: 0, p4: 0 });
+
+  useEffect(() => {
+    if (!metricsActive) return;
+    let frame = 0;
+    const totalFrames = 40;
+    const interval = setInterval(() => {
+      frame++;
+      const progress = Math.min(frame / totalFrames, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCounts({
+        p1: Math.floor(ease * 100),
+        p2: Math.floor(ease * 150),
+        p3: Math.floor(ease * 2),
+        p4: Math.floor(ease * 100),
+      });
+      if (frame >= totalFrames) clearInterval(interval);
+    }, 25);
+    return () => clearInterval(interval);
+  }, [metricsActive]);
+
+  useEffect(() => {
+    const el = document.getElementById("metrics-section");
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setMetricsActive(true);
+        }
+      },
+      { threshold: 0.25 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  // Interactive Live Terminal state & commands
+  const [cliInput, setCliInput] = useState("");
+  const [terminalLog, setTerminalLog] = useState<string | null>(null);
+
+  const runTerminalCmd = (cmd: string) => {
+    const clean = cmd.trim().toLowerCase();
+    if (clean === "skills") {
+      setTerminalLog(
+        "CORE: C++, Java | DEV: HTML5, CSS3, React, React Native | TOOLS: Git, Database, CLI",
+      );
+    } else if (clean === "projects") {
+      setTerminalLog("Displaying ORCA & ATTENDUP. Scrolling to archive...");
+      scrollTo("projects");
+    } else if (clean === "contact") {
+      setTerminalLog("Contact: khushamrutiya9@gmail.com | +91 97266 96590");
+      scrollTo("contact");
+    } else if (clean === "help") {
+      setTerminalLog(
+        "Available commands: [ skills ] [ projects ] [ contact ] [ theme ] [ clear ] [ whoami ]",
+      );
+    } else if (clean === "theme") {
+      setDark((prev) => !prev);
+      setTerminalLog("Theme toggled successfully.");
+    } else if (clean === "clear") {
+      setTerminalLog(null);
+    } else if (clean === "whoami") {
+      setTerminalLog(
+        "Khush Amrutiya — Computer Engineering Student, Full-Stack Developer & Problem Solver.",
+      );
+    } else {
+      setTerminalLog(`Command not found: "${cmd}". Type 'help' to see valid commands.`);
+    }
+    setCliInput("");
+  };
+
+  const handleTerminalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!cliInput.trim()) return;
+    runTerminalCmd(cliInput);
+  };
+
+  // Magnetic button hover
+  const handleMagneticMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+  };
+
+  const handleMagneticLeave = (e: React.MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.transform = "";
+  };
+
+  // Active section for Mobile Dock
+  const [activeSection, setActiveSection] = useState("home");
+  useEffect(() => {
+    const sections = ["home", "about", "education", "skills", "projects", "contact"];
+    const handleScrollSpy = () => {
+      const scrollY = window.scrollY + 240;
+      for (const sec of sections) {
+        const el = document.getElementById(sec);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollY >= top && scrollY < top + height) {
+            setActiveSection(sec);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScrollSpy, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollSpy);
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -239,18 +404,43 @@ function Page() {
           </p>
 
           <div className="hero-actions">
-            <button className="button primary" onClick={() => scrollTo("projects")}>
+            <button
+              className="button primary"
+              onClick={() => scrollTo("projects")}
+              onMouseMove={handleMagneticMove}
+              onMouseLeave={handleMagneticLeave}
+            >
               View My Work <ArrowUpRight />
             </button>
-            <button className="button secondary" onClick={() => scrollTo("contact")}>
+            <button
+              className="button secondary"
+              onClick={() => scrollTo("contact")}
+              onMouseMove={handleMagneticMove}
+              onMouseLeave={handleMagneticLeave}
+            >
               Get In Touch <Mail />
             </button>
           </div>
           <div className="hero-meta">
-            <span>
-              <span className="live-dot" /> OPEN TO INTERNSHIPS & ALL TECH ROLES
+            <span className="meta-badge-pulse">
+              <span className="live-dot-radar">
+                <span className="live-dot" />
+                <span className="radar-ping" />
+              </span>
+              OPEN TO INTERNSHIPS & ALL TECH ROLES
             </span>
-            <span>RAJKOT, GUJARAT</span>
+            <div className="live-clock-pill">
+              <span className="clock-icon-wrapper">
+                {clock.isDay ? (
+                  <Sun className="clock-sun animate-spin-slow" />
+                ) : (
+                  <Moon className="clock-moon" />
+                )}
+              </span>
+              <span className="clock-text">
+                <strong>Rajkot, IN</strong> • {clock.time || "04:55:00 PM"} IST
+              </span>
+            </div>
           </div>
         </div>
         <div className="hero-visual reveal">
@@ -265,6 +455,8 @@ function Page() {
                 href="https://www.linkedin.com/in/khush-amrutiya"
                 target="_blank"
                 rel="noreferrer"
+                onMouseMove={handleMagneticMove}
+                onMouseLeave={handleMagneticLeave}
               >
                 <Network /> LINKEDIN <ArrowUpRight />
               </a>
@@ -301,9 +493,42 @@ function Page() {
                 <br />
                 git & github workflow
               </p>
-              <p>
-                <span className="terminal-prompt">$</span> <span className="cursor" />
-              </p>
+
+              {/* Interactive Terminal Playground */}
+              <div className="terminal-command-chips">
+                <button type="button" onClick={() => runTerminalCmd("skills")}>
+                  $ skills
+                </button>
+                <button type="button" onClick={() => runTerminalCmd("projects")}>
+                  $ projects
+                </button>
+                <button type="button" onClick={() => runTerminalCmd("contact")}>
+                  $ contact
+                </button>
+                <button type="button" onClick={() => runTerminalCmd("help")}>
+                  $ help
+                </button>
+                <button type="button" onClick={() => runTerminalCmd("clear")}>
+                  $ clear
+                </button>
+              </div>
+
+              <form className="terminal-cli-form" onSubmit={handleTerminalSubmit}>
+                <span className="terminal-prompt">$</span>
+                <input
+                  type="text"
+                  className="terminal-cli-input"
+                  placeholder="Type a command (skills, projects, help...)"
+                  value={cliInput}
+                  onChange={(e) => setCliInput(e.target.value)}
+                />
+              </form>
+
+              {terminalLog && (
+                <div className="terminal-log-output">
+                  <span>{terminalLog}</span>
+                </div>
+              )}
             </div>
             <div className="terminal-footer">
               <span>
@@ -444,6 +669,27 @@ function Page() {
           </div>
           <span className="heading-line" />
         </div>
+
+        {/* Animated Metric Counters Banner */}
+        <div id="metrics-section" className="metrics-banner glass-card reveal">
+          <div className="metric-tile">
+            <span className="metric-val">{counts.p1}%</span>
+            <span className="metric-lbl">Geofenced Presence Accuracy</span>
+          </div>
+          <div className="metric-tile">
+            <span className="metric-val">&lt;{counts.p2}ms</span>
+            <span className="metric-lbl">Deterministic Risk Latency</span>
+          </div>
+          <div className="metric-tile">
+            <span className="metric-val">{counts.p3}</span>
+            <span className="metric-lbl">Production-Style Systems</span>
+          </div>
+          <div className="metric-tile">
+            <span className="metric-val">{counts.p4}%</span>
+            <span className="metric-lbl">Offline-First SQLite Cache</span>
+          </div>
+        </div>
+
         <div className="projects-grid">
           {projects.map((project, index) => (
             <article
@@ -470,27 +716,80 @@ function Page() {
                 </span>
                 <span>0{index + 1}</span>
               </div>
-              <div className={`project-visual ${project.image ? "has-image" : ""}`}>
-                {project.image ? (
-                  <img
-                    src={project.image}
-                    alt={`${project.name} preview`}
-                    className="project-cover-img"
-                    loading="lazy"
-                  />
-                ) : (
-                  <>
-                    <div className="project-grid" />
-                    <Terminal />
-                    <span className="project-command">
-                      {project.live ? "portfolio.init()" : "project.pending()"}
-                    </span>
-                  </>
-                )}
-              </div>
+
+              {/* Product Showcase Device Frames */}
+              {project.name === "ORCA" ? (
+                <div className="project-device-frame browser-frame">
+                  <div className="browser-chrome">
+                    <div className="browser-dots">
+                      <span className="dot dot-red" />
+                      <span className="dot dot-yellow" />
+                      <span className="dot dot-green" />
+                    </div>
+                    <div className="browser-url-bar">
+                      <Lock className="url-lock-icon" />
+                      <span>orca.marine/dashboard</span>
+                    </div>
+                    <span className="browser-tab-badge">AI INTEL</span>
+                  </div>
+                  <div className="device-screen-wrap">
+                    <img
+                      src={project.image}
+                      alt={`${project.name} preview`}
+                      className="project-cover-img"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="project-device-frame mobile-frame">
+                  <div className="mobile-chrome">
+                    <div className="mobile-speaker" />
+                    <span className="mobile-status-text">attendup.app // geofence</span>
+                    <span className="mobile-radar-dot" />
+                  </div>
+                  <div className="device-screen-wrap">
+                    <img
+                      src={project.image}
+                      alt={`${project.name} preview`}
+                      className="project-cover-img"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              )}
+
               <p className="project-tag">{project.tag}</p>
               <h3>{project.name}</h3>
               {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
+
+              {/* Impact Metrics Badges */}
+              {project.name === "ORCA" ? (
+                <div className="project-impact-pills">
+                  <span className="impact-pill">
+                    <Zap /> Multi-Agent AI
+                  </span>
+                  <span className="impact-pill">
+                    <Shield /> Deterministic Risk
+                  </span>
+                  <span className="impact-pill">
+                    <Globe /> Tactical Marine GIS
+                  </span>
+                </div>
+              ) : (
+                <div className="project-impact-pills">
+                  <span className="impact-pill">
+                    <Shield /> 100% Geofenced Privacy
+                  </span>
+                  <span className="impact-pill">
+                    <Smartphone /> Offline SQLite Queue
+                  </span>
+                  <span className="impact-pill">
+                    <Check /> Real-Device Tested
+                  </span>
+                </div>
+              )}
+
               <p className="muted-copy">{project.description}</p>
               {project.tech && (
                 <p className="project-tech-snippet">
@@ -625,6 +924,63 @@ function Page() {
           <GitBranch />
         </a>
       </footer>
+      {/* Mobile Floating Bottom Dock */}
+      <nav className="mobile-dock" aria-label="Mobile Navigation Dock">
+        <button
+          type="button"
+          onClick={() => scrollTo("home")}
+          className={activeSection === "home" ? "active" : ""}
+          aria-label="Navigate to Home"
+        >
+          <Code2 className="dock-icon" />
+          <span>Home</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollTo("about")}
+          className={activeSection === "about" ? "active" : ""}
+          aria-label="Navigate to About"
+        >
+          <Terminal className="dock-icon" />
+          <span>About</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollTo("skills")}
+          className={activeSection === "skills" ? "active" : ""}
+          aria-label="Navigate to Skills"
+        >
+          <Sparkles className="dock-icon" />
+          <span>Skills</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollTo("projects")}
+          className={activeSection === "projects" ? "active" : ""}
+          aria-label="Navigate to Projects"
+        >
+          <Layers className="dock-icon" />
+          <span>Projects</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollTo("contact")}
+          className={activeSection === "contact" ? "active" : ""}
+          aria-label="Navigate to Contact"
+        >
+          <Mail className="dock-icon" />
+          <span>Contact</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setDark(!dark)}
+          aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+        >
+          {dark ? <Sun className="dock-icon" /> : <Moon className="dock-icon" />}
+          <span>Theme</span>
+        </button>
+      </nav>
+
       <OrcaModal isOpen={orcaModalOpen} onClose={setOrcaModalOpen} />
       <AttendUpModal isOpen={attendUpModalOpen} onClose={setAttendUpModalOpen} />
     </main>
