@@ -80,6 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#0c1014" },
       { name: "author", content: "Khush Amrutiya" },
+      { name: "google-site-verification", content: "nWkYimgoi2u0aUgRrxEfbARXwwgy_v33cFC9Y-6AFGU" },
     ],
     links: [
       {

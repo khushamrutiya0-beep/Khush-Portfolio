@@ -31,18 +31,84 @@ const DESCRIPTION =
   "The personal portfolio of Khush Amrutiya — a Computer Engineering student building scalable software, solving algorithmic problems, and engineering solutions across diverse technical roles.";
 const HERO_IMAGE =
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-08-09%20at%201.49.39%20PM-UbKjiNZf4SXk3E5h7V1Fo1VHIIfR3L.jpeg";
+const SITE_URL = "https://khush.de5.net/";
+
+const jsonLdPerson = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}#person`,
+      name: "Khush Amrutiya",
+      givenName: "Khush",
+      familyName: "Amrutiya",
+      url: SITE_URL,
+      image: HERO_IMAGE,
+      jobTitle: "Computer Engineering Student & Software Developer",
+      description: DESCRIPTION,
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "V.V.P. Engineering College, Rajkot",
+      },
+      sameAs: ["https://www.linkedin.com/in/khush-amrutiya", "https://github.com/Khush-Amrutiya"],
+      knowsAbout: [
+        "Computer Engineering",
+        "React Native",
+        "Next.js",
+        "TypeScript",
+        "C++",
+        "Java",
+        "SQLite",
+        "Supabase",
+        "Geofencing",
+        "Multi-Agent AI",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}#website`,
+      url: SITE_URL,
+      name: "Khush Amrutiya | Computer Engineering Portfolio",
+      description: DESCRIPTION,
+      publisher: {
+        "@id": `${SITE_URL}#person`,
+      },
+    },
+  ],
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
+      {
+        name: "keywords",
+        content:
+          "Khush Amrutiya, Khush, Khush Amrutiya portfolio, khush.de5.net, Computer Engineering VVP Rajkot, software engineer portfolio, AttendUp, ORCA SIH 2026, web developer Rajkot",
+      },
+      {
+        name: "robots",
+        content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
+      { property: "og:type", content: "profile" },
+      { property: "og:url", content: SITE_URL },
       { property: "og:image", content: HERO_IMAGE },
+      { property: "profile:first_name", content: "Khush" },
+      { property: "profile:last_name", content: "Amrutiya" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
       { name: "twitter:image", content: HERO_IMAGE },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(jsonLdPerson),
+      },
     ],
   }),
   component: Page,
