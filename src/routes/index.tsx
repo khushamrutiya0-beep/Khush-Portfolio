@@ -226,32 +226,6 @@ function Page() {
     setDockMouseX(null);
   };
 
-  // Photo Torch Cursor Reveal
-  const [photoHovered, setPhotoHovered] = useState(false);
-  const handlePhotoMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    e.currentTarget.style.setProperty("--photo-x", `${x}px`);
-    e.currentTarget.style.setProperty("--photo-y", `${y}px`);
-    const card = e.currentTarget.closest<HTMLElement>(".hero-photo-card");
-    if (card) {
-      card.style.setProperty("--photo-x", `${x}px`);
-      card.style.setProperty("--photo-y", `${y}px`);
-    }
-    if (!photoHovered) setPhotoHovered(true);
-  };
-  const handlePhotoMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    setPhotoHovered(false);
-    e.currentTarget.style.setProperty("--photo-x", `-999px`);
-    e.currentTarget.style.setProperty("--photo-y", `-999px`);
-    const card = e.currentTarget.closest<HTMLElement>(".hero-photo-card");
-    if (card) {
-      card.style.setProperty("--photo-x", `-999px`);
-      card.style.setProperty("--photo-y", `-999px`);
-    }
-  };
-
   // Interactive Live Terminal state & commands
   const [cliInput, setCliInput] = useState("");
   const [terminalLog, setTerminalLog] = useState<string | null>(null);
@@ -446,13 +420,12 @@ function Page() {
         </div>
         <div className="hero-visual reveal">
           <figure className="hero-photo-card">
-            <div
-              className={`photo-torch-wrapper ${photoHovered ? "is-hovered" : ""}`}
-              onMouseMove={handlePhotoMouseMove}
-              onMouseLeave={handlePhotoMouseLeave}
-            >
-              <img src={HERO_IMAGE} alt="Khush Amrutiya" className="hero-photo photo-bw" />
-              <img src={HERO_IMAGE} alt="Khush Amrutiya" className="hero-photo photo-color" />
+            <div className="hero-photo-frame">
+              <img
+                src={HERO_IMAGE}
+                alt="Khush Amrutiya standing beside a car outdoors"
+                className="hero-photo"
+              />
             </div>
             <figcaption>
               <span>

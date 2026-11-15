@@ -35,19 +35,19 @@
 }
 :root.light {
   color-scheme: light;
-  --background: #edf3f1;
-  --foreground: #172126;
-  --card: #f8fbfa;
-  --card-foreground: #172126;
-  --primary: #168f73;
-  --primary-foreground: #f5fffc;
-  --muted: #607073;
-  --border: rgba(23, 33, 38, 0.14);
-  --input: rgba(23, 33, 38, 0.08);
-  --ring: #168f73;
-  --cyan: #168f73;
-  --purple: #7654cf;
-  --pink: #bd497b;
+  --background: #f8fafc;
+  --foreground: #090d16;
+  --card: #ffffff;
+  --card-foreground: #090d16;
+  --primary: #0d9488;
+  --primary-foreground: #ffffff;
+  --muted: #475569;
+  --border: rgba(15, 23, 42, 0.09);
+  --input: #f1f5f9;
+  --ring: #0d9488;
+  --cyan: #0d9488;
+  --purple: #6366f1;
+  --pink: #e11d48;
 }
 * {
   box-sizing: border-box;
@@ -91,6 +91,11 @@ main {
     linear-gradient(rgba(99, 230, 190, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(99, 230, 190, 0.026) 1px, transparent 1px);
   background-size: 64px 64px;
+}
+:root.light main {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
 .ambient {
   position: absolute;
@@ -451,10 +456,11 @@ h2 span {
     border-color 0.3s ease;
 }
 .hero-photo-card:hover {
-  transform: rotate(0deg) scale(1.02);
+  transform: rotate(0deg) scale(1.025);
   box-shadow:
     0 36px 90px rgba(0, 0, 0, 0.35),
-    0 0 30px color-mix(in srgb, var(--cyan) 18%, transparent);
+    0 0 35px color-mix(in srgb, var(--cyan) 25%, transparent);
+  border-color: color-mix(in srgb, var(--cyan) 50%, var(--border));
 }
 .hero-photo-card::after {
   content: "";
@@ -463,7 +469,7 @@ h2 span {
   border-radius: inherit;
   padding: 1.5px;
   background: radial-gradient(
-    280px circle at var(--photo-x, -500px) var(--photo-y, -500px),
+    320px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
     color-mix(in srgb, var(--cyan) 85%, transparent),
     transparent 70%
   );
@@ -481,51 +487,24 @@ h2 span {
   opacity: 1;
 }
 
-.photo-torch-wrapper {
+.hero-photo-frame {
   position: relative;
   width: 100%;
   aspect-ratio: 1.08;
   overflow: hidden;
-  cursor: crosshair;
+  background: #090e14;
 }
-.photo-torch-wrapper .hero-photo {
-  position: absolute;
-  inset: 0;
+.hero-photo-frame .hero-photo {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 24%;
-  display: block;
-  pointer-events: none;
-  transition: transform 0.4s ease;
+  filter: saturate(1.05) contrast(1.02);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.photo-torch-wrapper:hover .hero-photo {
-  transform: scale(1.03);
-}
-.photo-torch-wrapper .photo-bw {
-  filter: grayscale(1) contrast(1.1) brightness(0.92);
-  z-index: 1;
-}
-.photo-torch-wrapper .photo-color {
-  z-index: 2;
-  filter: saturate(1.22) contrast(1.06);
-  -webkit-mask-image: radial-gradient(
-    130px circle at var(--photo-x, -999px) var(--photo-y, -999px),
-    black 0%,
-    black 52%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    130px circle at var(--photo-x, -999px) var(--photo-y, -999px),
-    black 0%,
-    black 52%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-.photo-torch-wrapper.is-hovered .photo-color {
-  opacity: 1;
+.hero-photo-card:hover .hero-photo {
+  transform: scale(1.035);
 }
 .hero-photo-card figcaption {
   display: flex;
@@ -2369,4 +2348,392 @@ h2 span {
   border-top: 1px solid var(--border);
   background: rgba(0, 0, 0, 0.18);
   letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES — LUMINOUS PORCELAIN & VIBRANT EMERALD TEAL
+   ========================================================================== */
+
+:root.light .glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  box-shadow:
+    0 10px 30px -4px rgba(15, 23, 42, 0.06),
+    0 1px 3px rgba(15, 23, 42, 0.04);
+}
+:root.light .glass-card:hover {
+  border-color: color-mix(in srgb, var(--cyan) 55%, rgba(15, 23, 42, 0.1));
+  box-shadow:
+    0 20px 45px -4px rgba(15, 23, 42, 0.1),
+    0 0 26px color-mix(in srgb, var(--cyan) 14%, transparent);
+}
+:root.light .site-header {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+}
+:root.light .nav button {
+  color: #475569;
+}
+:root.light .nav button:hover {
+  color: #090d16;
+  background: rgba(15, 23, 42, 0.05);
+}
+:root.light .brand {
+  color: #090d16;
+}
+:root.light .brand-muted {
+  color: #64748b;
+}
+
+:root.light .meta-badge-pulse,
+:root.light .live-clock-pill {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  color: #090d16;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+}
+
+:root.light .hero-photo-card {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.09);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+}
+:root.light .hero-photo-card:hover {
+  box-shadow:
+    0 32px 75px rgba(15, 23, 42, 0.18),
+    0 0 32px color-mix(in srgb, var(--cyan) 22%, transparent);
+  border-color: var(--cyan);
+}
+:root.light .hero-photo-card figcaption {
+  color: #475569;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+:root.light .photo-linkedin {
+  color: #475569;
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+:root.light .photo-linkedin:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: color-mix(in srgb, var(--cyan) 10%, #ffffff);
+}
+
+/* macOS Xcode-Style Light Terminal */
+:root.light .hero-terminal {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.1),
+    0 1px 3px rgba(15, 23, 42, 0.05);
+}
+:root.light .terminal-top {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.09);
+  color: #475569;
+}
+:root.light .terminal-top i:nth-child(1) {
+  background: #ff5f56;
+}
+:root.light .terminal-top i:nth-child(2) {
+  background: #ffbd2e;
+}
+:root.light .terminal-top i:nth-child(3) {
+  background: #27c93f;
+}
+:root.light .terminal-body {
+  background: #ffffff;
+  color: #0f172a;
+}
+:root.light .terminal-prompt {
+  color: var(--cyan);
+  font-weight: 600;
+}
+:root.light .terminal-output {
+  color: #475569;
+}
+:root.light .terminal-output.role-output {
+  color: #0f766e;
+  font-weight: 700;
+}
+:root.light .role-cursor,
+:root.light .cursor {
+  background: var(--cyan);
+}
+:root.light .terminal-command-chips button {
+  background: rgba(13, 148, 136, 0.09);
+  border: 1px solid rgba(13, 148, 136, 0.28);
+  color: #0f766e;
+  font-weight: 600;
+}
+:root.light .terminal-command-chips button:hover {
+  background: rgba(13, 148, 136, 0.18);
+  border-color: var(--cyan);
+}
+:root.light .terminal-cli-form {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 10px;
+}
+:root.light .terminal-cli-input {
+  color: #0f172a;
+}
+:root.light .terminal-cli-input::placeholder {
+  color: #94a3b8;
+}
+:root.light .terminal-log-output {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid var(--cyan);
+  color: #0f172a;
+}
+:root.light .terminal-footer {
+  background: #f8fafc;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  color: #64748b;
+}
+
+/* General Typography & Copy in Light Theme */
+:root.light .hero-description {
+  color: #334155;
+}
+:root.light .large-copy {
+  color: #090d16;
+}
+:root.light .muted-copy {
+  color: #334155;
+}
+:root.light .section-heading h2 {
+  color: #090d16;
+}
+:root.light .section-heading p {
+  color: #64748b;
+}
+:root.light .heading-line {
+  background: rgba(15, 23, 42, 0.12);
+}
+:root.light .skill-number {
+  color: rgba(15, 23, 42, 0.1);
+}
+:root.light .skill-list span {
+  color: #0f172a;
+}
+:root.light .timeline h3 {
+  color: #090d16;
+}
+:root.light .timeline p {
+  color: #475569;
+}
+:root.light .timeline-date {
+  color: #64748b;
+}
+:root.light .timeline-node {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+:root.light .timeline-node.done {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+/* Projects & Devices in Light Theme */
+:root.light .project-card {
+  background: #ffffff;
+}
+:root.light .project-card h3 {
+  color: #090d16;
+}
+:root.light .project-card .muted-copy {
+  color: #334155;
+}
+:root.light .project-visual {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: var(--cyan);
+}
+:root.light .project-command {
+  color: #64748b;
+}
+:root.light .project-device-frame {
+  background: #090e14;
+}
+
+/* Contact & Dock in Light Theme */
+:root.light .contact-form input,
+:root.light .contact-form textarea {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #090d16;
+}
+:root.light .contact-form input:focus,
+:root.light .contact-form textarea:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyan) 16%, transparent);
+}
+:root.light .contact-form label {
+  color: #475569;
+}
+:root.light .contact-links a {
+  color: #475569;
+}
+:root.light .contact-links a:hover {
+  color: var(--cyan);
+}
+:root.light .footer {
+  border-top-color: rgba(15, 23, 42, 0.1);
+  color: #64748b;
+}
+:root.light .footer > span:first-child {
+  color: #090d16;
+}
+
+:root.light .macos-dock {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow:
+    0 20px 48px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+:root.light .macos-dock-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+}
+:root.light .macos-dock-item:hover {
+  background: #ffffff;
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--cyan) 25%, transparent);
+}
+:root.light .dock-tooltip {
+  background: #090d16;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Modals in Light Theme */
+:root.light .orca-modal-overlay {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(20px);
+}
+:root.light .orca-modal-content {
+  background: #f8fafc;
+}
+:root.light .modal-sticky-bar {
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid #e2e8f0;
+}
+:root.light .modal-sticky-title {
+  color: #090d16;
+}
+:root.light .modal-sticky-btn {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #090d16;
+}
+:root.light .modal-sticky-btn:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: color-mix(in srgb, var(--cyan) 8%, #ffffff);
+}
+:root.light .modal-close-pill {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #090d16;
+}
+:root.light .modal-close-pill:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+:root.light .modal-close-pill kbd {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+:root.light .executive-meta-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+:root.light .executive-meta-card:hover {
+  border-color: var(--cyan);
+}
+:root.light .executive-meta-label {
+  color: var(--cyan);
+}
+:root.light .executive-meta-value {
+  color: #090d16;
+}
+:root.light .case-study-tab-nav {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+:root.light .case-study-tab-btn {
+  color: #475569;
+}
+:root.light .case-study-tab-btn:hover {
+  color: #090d16;
+  background: rgba(255, 255, 255, 0.6);
+}
+:root.light .case-study-tab-btn.is-active {
+  background: #ffffff;
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+:root.light .pipeline-step-card,
+:root.light .decision-card,
+:root.light .orca-mini-card,
+:root.light .orca-feature-card,
+:root.light .orca-role-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+:root.light .pipeline-step-card h5,
+:root.light .decision-card h4,
+:root.light .orca-mini-card h4,
+:root.light .orca-feature-card h5,
+:root.light .orca-role-card strong {
+  color: #090d16;
+}
+:root.light .pipeline-step-card p,
+:root.light .decision-card p,
+:root.light .orca-mini-card p,
+:root.light .orca-feature-card p,
+:root.light .orca-overview-text,
+:root.light .orca-solution-list li {
+  color: #334155;
+}
+:root.light .clone-command-box {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+:root.light .clone-command-text {
+  color: #2dd4bf;
+}
+:root.light .clone-copy-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
+}
+:root.light .clone-copy-btn:hover {
+  border-color: #2dd4bf;
+  color: #2dd4bf;
+}
+:root.light .orca-tech-tag {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #090d16;
+}
+:root.light .attendup-screen-item {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+:root.light .attendup-screen-caption {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #475569;
 }
