@@ -213,43 +213,44 @@ function Page() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Animated Metric Counters
-  const [metricsActive, setMetricsActive] = useState(false);
-  const [counts, setCounts] = useState({ p1: 0, p2: 0, p3: 0, p4: 0 });
+  // Hovered project for project-adaptive ambient glow
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!metricsActive) return;
-    let frame = 0;
-    const totalFrames = 40;
-    const interval = setInterval(() => {
-      frame++;
-      const progress = Math.min(frame / totalFrames, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      setCounts({
-        p1: Math.floor(ease * 100),
-        p2: Math.floor(ease * 150),
-        p3: Math.floor(ease * 2),
-        p4: Math.floor(ease * 100),
-      });
-      if (frame >= totalFrames) clearInterval(interval);
-    }, 25);
-    return () => clearInterval(interval);
-  }, [metricsActive]);
+  // macOS Fluid Magnetic Dock mouse tracking
+  const [dockMouseX, setDockMouseX] = useState<number | null>(null);
+  const handleDockMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setDockMouseX(e.clientX - rect.left);
+  };
+  const handleDockMouseLeave = () => {
+    setDockMouseX(null);
+  };
 
-  useEffect(() => {
-    const el = document.getElementById("metrics-section");
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setMetricsActive(true);
-        }
-      },
-      { threshold: 0.25 },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  // Photo Torch Cursor Reveal
+  const [photoHovered, setPhotoHovered] = useState(false);
+  const handlePhotoMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty("--photo-x", `${x}px`);
+    e.currentTarget.style.setProperty("--photo-y", `${y}px`);
+    const card = e.currentTarget.closest<HTMLElement>(".hero-photo-card");
+    if (card) {
+      card.style.setProperty("--photo-x", `${x}px`);
+      card.style.setProperty("--photo-y", `${y}px`);
+    }
+    if (!photoHovered) setPhotoHovered(true);
+  };
+  const handlePhotoMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    setPhotoHovered(false);
+    e.currentTarget.style.setProperty("--photo-x", `-999px`);
+    e.currentTarget.style.setProperty("--photo-y", `-999px`);
+    const card = e.currentTarget.closest<HTMLElement>(".hero-photo-card");
+    if (card) {
+      card.style.setProperty("--photo-x", `-999px`);
+      card.style.setProperty("--photo-y", `-999px`);
+    }
+  };
 
   // Interactive Live Terminal state & commands
   const [cliInput, setCliInput] = useState("");
@@ -352,8 +353,8 @@ function Page() {
 
   return (
     <main>
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
+      <div className={`ambient ambient-one ${hoveredProject ? `tint-${hoveredProject}` : ""}`} />
+      <div className={`ambient ambient-two ${hoveredProject ? `tint-${hoveredProject}` : ""}`} />
       <header className={scrolled ? "site-header header-visible" : "site-header"}>
         <button className="brand" onClick={() => scrollTo("home")} aria-label="Back to home">
           <span className="brand-mark">
@@ -445,7 +446,14 @@ function Page() {
         </div>
         <div className="hero-visual reveal">
           <figure className="hero-photo-card">
-            <img src={HERO_IMAGE} alt="Khush Amrutiya standing beside a white car outdoors" />
+            <div
+              className={`photo-torch-wrapper ${photoHovered ? "is-hovered" : ""}`}
+              onMouseMove={handlePhotoMouseMove}
+              onMouseLeave={handlePhotoMouseLeave}
+            >
+              <img src={HERO_IMAGE} alt="Khush Amrutiya" className="hero-photo photo-bw" />
+              <img src={HERO_IMAGE} alt="Khush Amrutiya" className="hero-photo photo-color" />
+            </div>
             <figcaption>
               <span>
                 <span className="live-dot" /> KHUSH_AMRUTIYA
@@ -670,31 +678,13 @@ function Page() {
           <span className="heading-line" />
         </div>
 
-        {/* Animated Metric Counters Banner */}
-        <div id="metrics-section" className="metrics-banner glass-card reveal">
-          <div className="metric-tile">
-            <span className="metric-val">{counts.p1}%</span>
-            <span className="metric-lbl">Geofenced Presence Accuracy</span>
-          </div>
-          <div className="metric-tile">
-            <span className="metric-val">&lt;{counts.p2}ms</span>
-            <span className="metric-lbl">Deterministic Risk Latency</span>
-          </div>
-          <div className="metric-tile">
-            <span className="metric-val">{counts.p3}</span>
-            <span className="metric-lbl">Production-Style Systems</span>
-          </div>
-          <div className="metric-tile">
-            <span className="metric-val">{counts.p4}%</span>
-            <span className="metric-lbl">Offline-First SQLite Cache</span>
-          </div>
-        </div>
-
         <div className="projects-grid">
           {projects.map((project, index) => (
             <article
               className={`project-card glass-card reveal ${project.hasModal ? "card-interactive" : ""}`}
               key={project.name}
+              onMouseEnter={() => setHoveredProject(project.name.toLowerCase())}
+              onMouseLeave={() => setHoveredProject(null)}
               onClick={() => {
                 if (project.hasModal) {
                   openProjectModal(project.modalKey);
@@ -913,6 +903,79 @@ function Page() {
             )}
           </form>
         </div>
+
+        {/* macOS-Style Fluid Magnetic Icon Dock */}
+        <div className="macos-dock-wrapper reveal">
+          <p className="mono-label" style={{ fontSize: 11, marginBottom: 4 }}>
+            // QUICK ACTION & CONNECT DOCK
+          </p>
+          <div
+            className="macos-dock"
+            onMouseMove={handleDockMouseMove}
+            onMouseLeave={handleDockMouseLeave}
+          >
+            {[
+              {
+                name: "GitHub",
+                icon: <GitBranch />,
+                href: "https://github.com/khushamrutiya0-beep",
+                tooltip: "github.com/khushamrutiya0-beep",
+              },
+              {
+                name: "LinkedIn",
+                icon: <Globe />,
+                href: "https://linkedin.com/in/khushamrutiya",
+                tooltip: "linkedin.com/in/khushamrutiya",
+              },
+              {
+                name: "Email",
+                icon: <Mail />,
+                href: "mailto:khushamrutiya9@gmail.com",
+                tooltip: "khushamrutiya9@gmail.com",
+              },
+              {
+                name: "Phone",
+                icon: <Phone />,
+                href: "tel:+919726696590",
+                tooltip: "+91 97266 96590",
+              },
+              {
+                name: "Terminal",
+                icon: <Terminal />,
+                onClick: () => scrollTo("home"),
+                tooltip: "Jump to Terminal",
+              },
+            ].map((item, index) => {
+              const itemWidth = 56;
+              const itemCenter = index * itemWidth + 28;
+              let scale = 1;
+              if (dockMouseX !== null) {
+                const dist = Math.abs(dockMouseX - itemCenter);
+                const maxDist = 140;
+                if (dist < maxDist) {
+                  scale = 1 + 0.36 * Math.cos((dist / maxDist) * (Math.PI / 2));
+                }
+              }
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target={item.href?.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href?.startsWith("http") ? "noreferrer" : undefined}
+                  onClick={item.onClick}
+                  className="macos-dock-item"
+                  style={{
+                    transform: `translateY(-${(scale - 1) * 16}px) scale(${scale})`,
+                  }}
+                  aria-label={item.name}
+                >
+                  <span className="dock-tooltip">{item.tooltip}</span>
+                  {item.icon}
+                </a>
+              );
+            })}
+          </div>
+        </div>
       </section>
 
       <footer className="footer shell">
@@ -924,62 +987,6 @@ function Page() {
           <GitBranch />
         </a>
       </footer>
-      {/* Mobile Floating Bottom Dock */}
-      <nav className="mobile-dock" aria-label="Mobile Navigation Dock">
-        <button
-          type="button"
-          onClick={() => scrollTo("home")}
-          className={activeSection === "home" ? "active" : ""}
-          aria-label="Navigate to Home"
-        >
-          <Code2 className="dock-icon" />
-          <span>Home</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollTo("about")}
-          className={activeSection === "about" ? "active" : ""}
-          aria-label="Navigate to About"
-        >
-          <Terminal className="dock-icon" />
-          <span>About</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollTo("skills")}
-          className={activeSection === "skills" ? "active" : ""}
-          aria-label="Navigate to Skills"
-        >
-          <Sparkles className="dock-icon" />
-          <span>Skills</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollTo("projects")}
-          className={activeSection === "projects" ? "active" : ""}
-          aria-label="Navigate to Projects"
-        >
-          <Layers className="dock-icon" />
-          <span>Projects</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollTo("contact")}
-          className={activeSection === "contact" ? "active" : ""}
-          aria-label="Navigate to Contact"
-        >
-          <Mail className="dock-icon" />
-          <span>Contact</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setDark(!dark)}
-          aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-        >
-          {dark ? <Sun className="dock-icon" /> : <Moon className="dock-icon" />}
-          <span>Theme</span>
-        </button>
-      </nav>
 
       <OrcaModal isOpen={orcaModalOpen} onClose={setOrcaModalOpen} />
       <AttendUpModal isOpen={attendUpModalOpen} onClose={setAttendUpModalOpen} />
