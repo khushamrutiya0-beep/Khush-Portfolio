@@ -81,6 +81,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#0c1014" },
       { name: "author", content: "Khush Amrutiya" },
       { name: "google-site-verification", content: "nWkYimgoi2u0aUgRrxEfbARXwwgy_v33cFC9Y-6AFGU" },
+      { property: "og:site_name", content: "Khush Amrutiya Portfolio" },
+      { property: "og:locale", content: "en_US" },
     ],
     links: [
       {
@@ -94,8 +96,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
-      { rel: "icon", type: "image/png", href: "/favicon.png" },
-      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon.png" },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/favicon.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
 

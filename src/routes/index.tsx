@@ -26,9 +26,9 @@ import {
 import { OrcaModal } from "../components/OrcaModal";
 import { AttendUpModal } from "../components/AttendUpModal";
 
-const TITLE = "Khush Amrutiya | Computer Engineering & Software Portfolio";
+const TITLE = "Khush Amrutiya — Computer Engineering Student & Software Developer | Portfolio";
 const DESCRIPTION =
-  "The personal portfolio of Khush Amrutiya — a Computer Engineering student building scalable software, solving algorithmic problems, and engineering solutions across diverse technical roles.";
+  "Official portfolio of Khush Amrutiya, Computer Engineering student at V.V.P. Engineering College, Rajkot. Builder of AttendUp (offline-first mobile attendance app) and ORCA (AI marine intelligence platform). Explore software projects, engineering stack, and get in touch.";
 const HERO_IMAGE =
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-08-09%20at%201.49.39%20PM-UbKjiNZf4SXk3E5h7V1Fo1VHIIfR3L.jpeg";
 const SITE_URL = "https://khush.de5.net/";
@@ -36,6 +36,15 @@ const SITE_URL = "https://khush.de5.net/";
 const jsonLdPerson = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": `${SITE_URL}#profilepage`,
+      url: SITE_URL,
+      name: "Khush Amrutiya — Computer Engineering Portfolio",
+      isPartOf: { "@id": `${SITE_URL}#website` },
+      about: { "@id": `${SITE_URL}#person` },
+      mainEntity: { "@id": `${SITE_URL}#person` },
+    },
     {
       "@type": "Person",
       "@id": `${SITE_URL}#person`,
@@ -46,33 +55,71 @@ const jsonLdPerson = {
       image: HERO_IMAGE,
       jobTitle: "Computer Engineering Student & Software Developer",
       description: DESCRIPTION,
+      gender: "Male",
+      nationality: {
+        "@type": "Country",
+        name: "India",
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Rajkot",
+        addressRegion: "Gujarat",
+        addressCountry: "IN",
+      },
       alumniOf: {
         "@type": "CollegeOrUniversity",
         name: "V.V.P. Engineering College, Rajkot",
+        sameAs: "https://vvpedulink.ac.in/",
       },
       sameAs: ["https://www.linkedin.com/in/khush-amrutiya", "https://github.com/Khush-Amrutiya"],
       knowsAbout: [
         "Computer Engineering",
+        "Software Engineering",
         "React Native",
+        "Expo SDK",
         "Next.js",
         "TypeScript",
         "C++",
         "Java",
         "SQLite",
+        "PostgreSQL",
         "Supabase",
         "Geofencing",
-        "Multi-Agent AI",
+        "Artificial Intelligence",
+        "Multi-Agent Systems",
       ],
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}#orca`,
+      name: "ORCA",
+      applicationCategory: "DecisionSupportApplication",
+      operatingSystem: "Web",
+      description:
+        "Intelligent Ocean Risk & Coastal Analytics System built for Smart India Hackathon 2026 featuring multi-agent AI reasoning, deterministic marine risk scoring, and interactive Leaflet GIS.",
+      author: { "@id": `${SITE_URL}#person` },
+      url: "https://orca-in.vercel.app/",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}#attendup`,
+      name: "AttendUp",
+      applicationCategory: "EducationApplication",
+      operatingSystem: "Android, iOS",
+      description:
+        "Smart student attendance and campus presence platform using high-precision geofencing, local offline SQLite queue, and privacy-first parent verification.",
+      author: { "@id": `${SITE_URL}#person` },
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}#website`,
       url: SITE_URL,
-      name: "Khush Amrutiya | Computer Engineering Portfolio",
+      name: "Khush Amrutiya Portfolio",
       description: DESCRIPTION,
       publisher: {
         "@id": `${SITE_URL}#person`,
       },
+      inLanguage: "en",
     },
   ],
 };
@@ -85,7 +132,7 @@ export const Route = createFileRoute("/")({
       {
         name: "keywords",
         content:
-          "Khush Amrutiya, Khush, Khush Amrutiya portfolio, khush.de5.net, Computer Engineering VVP Rajkot, software engineer portfolio, AttendUp, ORCA SIH 2026, web developer Rajkot",
+          "Khush Amrutiya, Khush, Khush Amrutiya portfolio, khush.de5.net, Computer Engineering VVP Rajkot, VVP Engineering College Rajkot, software engineer portfolio, AttendUp, ORCA SIH 2026, web developer Rajkot, React Native developer India",
       },
       {
         name: "robots",
@@ -96,12 +143,20 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "profile" },
       { property: "og:url", content: SITE_URL },
       { property: "og:image", content: HERO_IMAGE },
+      {
+        property: "og:image:alt",
+        content: "Khush Amrutiya - Software Developer and Computer Engineering Student",
+      },
       { property: "profile:first_name", content: "Khush" },
       { property: "profile:last_name", content: "Amrutiya" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
       { name: "twitter:image", content: HERO_IMAGE },
+      {
+        name: "twitter:image:alt",
+        content: "Khush Amrutiya - Software Developer and Computer Engineering Student",
+      },
     ],
     links: [{ rel: "canonical", href: SITE_URL }],
     scripts: [
@@ -440,8 +495,8 @@ function Page() {
             Khush <span>Amrutiya.</span>
           </h1>
           <p className="hero-description">
-            First-year Computer Engineering student. I build things — mobile apps, web tools, and
-            whatever problem lands in front of me.
+            First-year Computer Engineering student at V.V.P. Engineering College, Rajkot. I build
+            things — mobile apps, web tools, and whatever problem lands in front of me.
           </p>
 
           <div className="hero-actions">
